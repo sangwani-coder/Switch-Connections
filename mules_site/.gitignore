@@ -1,4 +1,14 @@
+# Ignore Virtual Env
 .venv
 __pycache__/
+# Ignore db and migrations
 */migrations/*
 *.sqlite3*
+# Ignore JPEG files
+*.jpg
+
+# Ignore PNG files
+*.png
+# Add more extensions if needed
+# *.gif
+# *.bmp
