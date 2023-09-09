@@ -5,6 +5,9 @@ class ContactInformation(models.Model):
     phone_number_1 = models.CharField(max_length=13)
     phone_number_2 = models.CharField(max_length=13)
     email_address = models.CharField(max_length=100)
+
+    class Meta:
+        verbose_name_plural = "Contact information"
     
     
 class ContactFormSubmissions(models.Model):
@@ -12,4 +15,7 @@ class ContactFormSubmissions(models.Model):
     email = models.CharField(max_length=100)
     mobile = models.CharField(max_length=100)
     message = models.CharField(max_length=1000)
-    created_at = models.DateTimeField(auto_now=True) 
+    created_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name_plural = "Contact form submissions" 
