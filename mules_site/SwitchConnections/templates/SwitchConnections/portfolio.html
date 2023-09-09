@@ -3,5 +3,10 @@
 {% block title %}Switch Connections - Portfolio{% endblock %}
 
 {% block content %}
-<h1>"Hello, World! You're are at Switch Connections sites - portfolio"</h1>
+{% for project in projects %}
+    <p>Project name: {{ project.project_name}}</p>
+    <p>Project description: {{ project.project_description}}</p>
+    <p>Project category: {{project.project_category}}</p>
+    <br>
+{% endfor %}
 {% endblock %}

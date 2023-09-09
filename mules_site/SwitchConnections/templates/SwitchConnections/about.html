@@ -3,5 +3,14 @@
 {% block title %}Switch Connections - About us{% endblock %}
 
 {% block content %}
-<h1>"Hello, World! You're are at Switch Connections sites - about"</h1>
+<p>Mission: {{company_info.mission}}</p>
+<p>Vision: {{company_info.vision}}</p>
+<p>History: {{company_info.history}}</p>
+<br>
+{% for member in team %}
+    <p>Name: {{member.name }}</p>
+    <p>Position: {{ member.position }}</p>
+    <p>Bio: {{ member.bio }}</p>
+    <br>
+{% endfor %}
 {% endblock %}

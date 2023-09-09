@@ -1,0 +1,11 @@
+{% extends 'SwitchConnections/base.html' %}
+
+
+{% block title %}Switch Connections - Service details{% endblock %}
+
+{% block content %}
+<h3>Name: {{ service.service_name }}</h3>
+<p>Description: {{ service.service_description }}</p>
+<p>Category: {{ service.service_category }}</p>
+<p>Price: {{ service.service_price }}</p>
+{% endblock %}

@@ -11,6 +11,8 @@ urlpatterns = [
     path("about/", views.about, name="about_us"),
     # ex: /services/
     path("services/", views.services, name="services"),
+    # ex: /services/1
+    path("service/<int:service_id>", views.service_detail, name="service_detail"),
     # ex: /contact/
     path("contact/", views.contact, name="contact_us"),
 ]
