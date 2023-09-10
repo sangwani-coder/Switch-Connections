@@ -8,7 +8,7 @@ urlpatterns = [
     # ex: /portfolio/
     path("portfolio/", views.portfolio, name="portfolio"),
     # ex: /portfolio/1
-    path("portfolio/<int:project_id>", views.portfolio, name="portfolio_detail"),
+    path("portfolio/<int:project_id>", views.portfolio_detail, name="portfolio_detail"),
     # ex: /about/
     path("about/", views.about, name="about_us"),
     # ex: /services/

@@ -2,8 +2,8 @@ from django.shortcuts import render, get_object_or_404
 from . import models
 
 def index(request):
-    cover = models.CoverImage.objects.first()
-    return render(request, 'SwitchConnections/index.html', {'cover':cover})
+    images = models.BrandImages.objects.all()
+    return render(request, 'SwitchConnections/index.html', {'images':images})
 
 def about(request):
     company_info = models.CompanyInformation.objects.first()
@@ -24,6 +24,10 @@ def service_detail(request, service_id):
     return render(request, 'SwitchConnections/service_details.html', {'service':service})
 
 def portfolio(request):
-    projects = models.Project.objects.all()
+    projects = models.ProjectListings.objects.all()
     return render(request, 'SwitchConnections/portfolio.html', {'projects':projects})
 
+
+def portfolio_detail(request, project_id):
+    project = get_object_or_404(models.ProjectListings, pk=project_id)
+    return render(request, 'SwitchConnections/project_details.html', {'project':project})
