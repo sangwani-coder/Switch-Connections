@@ -1,8 +1,8 @@
 from django.contrib import admin
 from .models import ServiceCategory, ServiceListings
 from .models import CompanyInformation, TeamMembers
-from .models import Project, ProjectCategory
-from .models import CoverImage
+from .models import ProjectListings, ProjectCategory
+from .models import BrandImages
 from .models import ContactFormSubmissions, ContactInformation
 
 
@@ -38,10 +38,10 @@ admin.site.register(TeamMembers, TeamMembersAdmin)
 admin.site.register(ContactFormSubmissions, ContactFormAdmin)
 admin.site.register(ContactInformation, ContactInformationAdmin)
 #HOME
-admin.site.register(CoverImage)
+admin.site.register(BrandImages)
 #PORTFOLIO
 admin.site.register(ProjectCategory, ProjectCategoryAdmin)
-admin.site.register(Project, ProjectAdmin)
+admin.site.register(ProjectListings, ProjectAdmin)
 #SERVICES
 admin.site.register(ServiceListings, ServiceListingAdmin)
 admin.site.register(ServiceCategory, ServiceCategoryAdmin)

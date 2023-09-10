@@ -1,4 +1,8 @@
 from django.db import models
+from django.urls import reverse
+from django.dispatch import receiver
+from django.db.models.signals import pre_save
+from .helpers import delete_old_image
 
 
 # ABOUT US
@@ -6,24 +10,24 @@ class TeamMembers(models.Model):
     name = models.CharField(max_length=100)
     position = models.CharField(max_length=100)
     bio = models.CharField(max_length=250)
-    profile_picture = models.ImageField()
+    profile_picture = models.ImageField(upload_to='uploads/team/', null=True)
 
     class Meta:
         verbose_name_plural = "Team members"
 
     def __str__(self):
-        return self.name
+        return f'{self.name}, {self.position}'
     
 class CompanyInformation(models.Model):
-    mission = models.CharField(max_length=500)
-    vision = models.CharField(max_length=500)
-    history = models.CharField(max_length=500)
+    mission = models.CharField(max_length=50)
+    vision = models.CharField(max_length=100)
+    history = models.CharField(max_length=1000)
 
     class Meta:
         verbose_name_plural = "Company information"
 
     def __str__(self):
-        return self.vision
+        return f'{self.mission}, {self.vision}, {self.history}'
     
 
 # CONTANT US
@@ -37,7 +41,7 @@ class ContactInformation(models.Model):
         verbose_name_plural = "Contact information"
 
     def __str__(self):
-        return self.physical_address
+        return f'{self.email_address}, {self.phone_number_1}'
     
     
 class ContactFormSubmissions(models.Model):
@@ -51,15 +55,13 @@ class ContactFormSubmissions(models.Model):
         verbose_name_plural = "Contact form submissions" 
 
     def __str__(self):
-        return self.name
+        return f'{self.created_at}, {self.name}, {self.message}, {self.mobile}'
 
 
 # HOME
-class CoverImage(models.Model):
-    title = models.CharField(max_length=100)
-    image_file = models.ImageField()
-    description = models.CharField(max_length=150)
-
+class BrandImages(models.Model):
+    cover_image = models.ImageField(upload_to=delete_old_image, null=True)
+    logo_image = models.ImageField(upload_to=delete_old_image, null=True)
 
 # PORTFOLIO
 class ProjectCategory(models.Model):
@@ -73,11 +75,14 @@ class ProjectCategory(models.Model):
         return self.category_name
 
 
-class Project(models.Model):
+class ProjectListings(models.Model):
     project_name = models.CharField(max_length=100)
     project_description = models.CharField(max_length=1000)
-    project_images = models.ImageField()
+    project_images = models.ImageField(upload_to='uploads/projects/', null=True)
     project_category = models.ForeignKey(ProjectCategory, on_delete=models.CASCADE)
+
+    def get_absolute_url(self):
+        return reverse('portfolio_detail', args=[str(self.id)])
 
     def __str__(self):
         return self.project_name
@@ -97,13 +102,16 @@ class ServiceCategory(models.Model):
 
 class ServiceListings(models.Model):
     service_name = models.CharField(max_length=100)
-    service_description = models.CharField(max_length=100)
+    service_description = models.CharField(max_length=250)
     service_price = models.CharField(max_length=10)
     service_category = models.ForeignKey(ServiceCategory, on_delete=models.CASCADE)
 
     class Meta:
         verbose_name_plural = "Service listings"
 
+    def get_absolute_url(self):
+        return reverse('service_detail', args=[str(self.id)])
+    
     def __str__(self):
         return self.service_name
     

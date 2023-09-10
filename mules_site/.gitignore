@@ -12,3 +12,4 @@ __pycache__/
 # Add more extensions if needed
 # *.gif
 # *.bmp
+.coverage
