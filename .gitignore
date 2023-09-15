@@ -1,8 +1,8 @@
 # Ignore Virtual Env
-.venv
+.venv/*
 __pycache__/
 # Ignore db and migrations
-*/migrations/*
+mules_site/SwitchConnections/migrations/
 *.sqlite3*
 # Ignore JPEG files
 *.jpg

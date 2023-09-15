@@ -2,7 +2,7 @@ from django.contrib import admin
 from .models import ServiceCategory, ServiceListings
 from .models import CompanyInformation, TeamMembers
 from .models import ProjectListings, ProjectCategory
-from .models import BrandImages
+from .models import BannerImage, LogoImage
 from .models import ContactFormSubmissions, ContactInformation
 
 
@@ -31,17 +31,27 @@ class ServiceListingAdmin(admin.ModelAdmin):
     list_display = ['service_name', 'service_description', 'service_price', 'service_category']
 
 
+class BannerAdmin(admin.ModelAdmin):
+    list_display = ["cover_image"]
+
+class LogoAdmin(admin.ModelAdmin):
+    list_display = ["logo_image"]
+
 #ABOUT_US
 admin.site.register(CompanyInformation, CompanyInforAdmin)
 admin.site.register(TeamMembers, TeamMembersAdmin)
 #CONTACT US
 admin.site.register(ContactFormSubmissions, ContactFormAdmin)
 admin.site.register(ContactInformation, ContactInformationAdmin)
-#HOME
-admin.site.register(BrandImages)
+#Banner
+admin.site.register(BannerImage, BannerAdmin)
+# Logo
+admin.site.register(LogoImage, LogoAdmin)
 #PORTFOLIO
 admin.site.register(ProjectCategory, ProjectCategoryAdmin)
 admin.site.register(ProjectListings, ProjectAdmin)
 #SERVICES
 admin.site.register(ServiceListings, ServiceListingAdmin)
 admin.site.register(ServiceCategory, ServiceCategoryAdmin)
+
+# username: admin pass: test#123

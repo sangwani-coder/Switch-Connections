@@ -2,8 +2,9 @@ from django.shortcuts import render, get_object_or_404
 from . import models
 
 def index(request):
-    images = models.BrandImages.objects.all()
-    return render(request, 'SwitchConnections/index.html', {'images':images})
+    banner = models.BannerImage.objects.latest('cover_image')
+    template_name = 'SwitchConnections/index.html'
+    return render(request, template_name, {'banner':banner})
 
 def about(request):
     company_info = models.CompanyInformation.objects.first()

@@ -2,7 +2,6 @@ from django.db import models
 from django.urls import reverse
 from django.dispatch import receiver
 from django.db.models.signals import pre_save
-from .helpers import delete_old_image
 
 
 # ABOUT US
@@ -58,10 +57,37 @@ class ContactFormSubmissions(models.Model):
         return f'{self.created_at}, {self.name}, {self.message}, {self.mobile}'
 
 
-# HOME
-class BrandImages(models.Model):
-    cover_image = models.ImageField(upload_to=delete_old_image, null=True)
-    logo_image = models.ImageField(upload_to=delete_old_image, null=True)
+def delete_old_image(instance, filename):
+        from .models import BannerImage
+        # If an old image exists, delete it before saving the new one
+        if instance.pk:
+            old_instance = BannerImage.objects.get(pk=instance.pk)
+            if old_instance.cover_image and old_instance.cover_image != instance.cover_image:
+                old_instance.cover_image.delete(save=False)
+            if old_instance.logo_image and old_instance.logo_image != instance.logo_image:
+                old_instance.logo_image.delete(save=False)
+        return filename    
+
+# Cover
+class LogoImage(models.Model):
+    logo_image = models.ImageField(upload_to="static/logo", null=True)
+
+    class Meta:
+        verbose_name_plural = "Logo Image"
+    
+    def __str__(self):
+        return self.logo_image.path
+
+# Cover
+class BannerImage(models.Model):
+    cover_image = models.ImageField(upload_to="static/banner", null=True)
+    
+    class Meta:
+        verbose_name_plural = "Banner Image"
+
+    def __str__(self):
+        return self.cover_image.path
+
 
 # PORTFOLIO
 class ProjectCategory(models.Model):
@@ -80,6 +106,9 @@ class ProjectListings(models.Model):
     project_description = models.CharField(max_length=1000)
     project_images = models.ImageField(upload_to='uploads/projects/', null=True)
     project_category = models.ForeignKey(ProjectCategory, on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name_plural = "Project Listings"
 
     def get_absolute_url(self):
         return reverse('portfolio_detail', args=[str(self.id)])

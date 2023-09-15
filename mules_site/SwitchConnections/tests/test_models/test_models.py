@@ -4,12 +4,12 @@ from SwitchConnections.models import (
     ProjectCategory, ProjectListings,
     TeamMembers, CompanyInformation,
     ContactInformation, ContactFormSubmissions,
-    BrandImages,
+    BannerImage,
     )
 
 from django.test import TestCase
 from django.core.files.uploadedfile import SimpleUploadedFile
-from SwitchConnections.helpers import delete_old_image
+from SwitchConnections.models import delete_old_image
 
 from mules_site.settings import BASE_DIR
 
@@ -395,29 +395,29 @@ class ContactFormSubmissionTestClass(TestCase):
         self.assertEqual(str(message), expected_object_name)
 
 
-class BrandImagesTestClass(TestCase):
+class BannerImageTestClass(TestCase):
 
     @classmethod
     def setUpTestData(cls) -> None:
         logo = str(BASE_DIR) + 'static/img/brass.jpg'
         cover = str(BASE_DIR) + 'static/img/brass.jpg'
-        BrandImages.objects.create(logo_image=logo, cover_image=cover)
+        BannerImage.objects.create(logo_image=logo, cover_image=cover)
     
     def test_logo_label(self):
-        logo = BrandImages.objects.get(id=1)
+        logo = BannerImage.objects.get(id=1)
         field_label = logo._meta.get_field('logo_image').verbose_name
         self.assertEqual(field_label, 'logo image')
 
     def test_cover_label(self):
-        cover = BrandImages.objects.get(id=1)
+        cover = BannerImage.objects.get(id=1)
         field_label = cover._meta.get_field('cover_image').verbose_name
         self.assertEqual(field_label, 'cover image')
 
 
 # class DeleteOldImageTest(TestCase):
 #     def setUp(self):
-#         # Create a test instance of BrandImages
-#         self.brand_image = BrandImages.objects.create()
+#         # Create a test instance of BannerImage
+#         self.brand_image = BannerImage.objects.create()
 
 #     def tearDown(self):
 #         # Clean up after the test
@@ -434,7 +434,7 @@ class BrandImagesTestClass(TestCase):
 #         self.brand_image.save()
 
 #         # Create a new instance with the same primary key (simulating an update)
-#         new_instance = BrandImages(pk=self.brand_image.pk)
+#         new_instance = BannerImage(pk=self.brand_image.pk)
 
 #         # Call delete_old_image function
 #         delete_old_image(new_instance, "brass.jpg")

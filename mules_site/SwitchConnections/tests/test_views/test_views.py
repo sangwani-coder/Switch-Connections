@@ -2,7 +2,7 @@ from django.test import TestCase
 from django.urls import reverse
 from django.contrib.auth.models import User
 from SwitchConnections.models import (
-    BrandImages, CompanyInformation,
+    BannerImage, CompanyInformation,
     TeamMembers, ContactInformation,
     ServiceListings, ProjectListings,
     ServiceCategory, ProjectCategory)
@@ -15,7 +15,7 @@ class ViewsTestCase(TestCase):
         p_category = ProjectCategory.objects.create(
             category_name='test category', category_description="test description")
         self.user = User.objects.create(username="testuser")
-        self.brand_image = BrandImages.objects.create(
+        self.brand_image = BannerImage.objects.create(
             cover_image="cover.jpg", logo_image="logo.jpg")
         self.company_info = CompanyInformation.objects.create(
             mission="Test mission", vision="Test vision")
