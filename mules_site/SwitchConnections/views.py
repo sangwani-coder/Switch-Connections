@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from . import models
 
 def index(request):
-    banner = models.BannerImage.objects.latest('cover_image')
+    banner = models.BannerImage.objects.last()
     template_name = 'SwitchConnections/index.html'
     return render(request, template_name, {'banner':banner})
 

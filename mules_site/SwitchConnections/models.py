@@ -2,6 +2,7 @@ from django.db import models
 from django.urls import reverse
 from django.dispatch import receiver
 from django.db.models.signals import pre_save
+from .utils import delete_old_image
 
 
 # ABOUT US
@@ -57,16 +58,17 @@ class ContactFormSubmissions(models.Model):
         return f'{self.created_at}, {self.name}, {self.message}, {self.mobile}'
 
 
-def delete_old_image(instance, filename):
-        from .models import BannerImage
-        # If an old image exists, delete it before saving the new one
-        if instance.pk:
-            old_instance = BannerImage.objects.get(pk=instance.pk)
-            if old_instance.cover_image and old_instance.cover_image != instance.cover_image:
-                old_instance.cover_image.delete(save=False)
-            if old_instance.logo_image and old_instance.logo_image != instance.logo_image:
-                old_instance.logo_image.delete(save=False)
-        return filename    
+# def delete_old_image(instance, filename):
+#         print("instance", instance.pk)
+#         # If an old image exists, delete it before saving the new one
+#         if instance.pk:
+#             print('OLD FILE:', instance.pk)
+#             old_instance = BannerImage.objects.get(pk=instance.pk)
+#             if old_instance.cover_image and old_instance.cover_image != instance.cover_image:
+#                 old_instance.cover_image.delete(save=False)
+#             if old_instance.logo_image and old_instance.logo_image != instance.logo_image:
+#                 old_instance.logo_image.delete(save=False)
+#         return "static/images/" + filename
 
 # Cover
 class LogoImage(models.Model):
@@ -80,7 +82,7 @@ class LogoImage(models.Model):
 
 # Cover
 class BannerImage(models.Model):
-    cover_image = models.ImageField(upload_to="static/banner", null=True)
+    cover_image = models.ImageField(upload_to=delete_old_image, null=True)
     
     class Meta:
         verbose_name_plural = "Banner Image"
