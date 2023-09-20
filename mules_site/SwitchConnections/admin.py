@@ -16,7 +16,7 @@ class CompanyInforAdmin(admin.ModelAdmin):
     list_display = ['mission', 'vision', 'history']
 
 class TeamMembersAdmin(admin.ModelAdmin):
-    list_display = ['name', 'position', 'bio']
+    list_display = ['name', 'position', 'bio', 'profile_picture']
     
 class ContactFormAdmin(admin.ModelAdmin):
     list_display = ['name', 'email', 'mobile', 'message', 'created_at']

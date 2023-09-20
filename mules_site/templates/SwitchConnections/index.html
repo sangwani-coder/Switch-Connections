@@ -1,9 +1,14 @@
 {% extends 'SwitchConnections/base.html' %}
- {% load static %}
+{% load static %}
 {% block title %}Switch Connections - Home{% endblock %}
+{% block hero %}
+<div class="hero-image hero-bg">
+    <img class="img-fluid" src="{{ banner.cover_image.url }}" alt="hero-image">
 
-{% block content %}
-    <h2>{{cover.title}}</h2>
-    <img src="{{ banner.cover_image.url }}" alt="hero-image">
-    <p>{{cover.description }}</p>
+    <div class="hero-text">
+        <h1 style="font-size:50px">SwitchConnections</h1>
+        <p>Creativity Redefined</p>
+        <button>Hire Us</button>
+    </div>
+</div>
 {% endblock %}

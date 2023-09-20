@@ -10,7 +10,7 @@ class TeamMembers(models.Model):
     name = models.CharField(max_length=100)
     position = models.CharField(max_length=100)
     bio = models.CharField(max_length=250)
-    profile_picture = models.ImageField(upload_to='uploads/team/', null=True)
+    profile_picture = models.ImageField(upload_to='static/images/team', null=True, blank=True)
 
     class Meta:
         verbose_name_plural = "Team members"
@@ -106,7 +106,7 @@ class ProjectCategory(models.Model):
 class ProjectListings(models.Model):
     project_name = models.CharField(max_length=100)
     project_description = models.CharField(max_length=1000)
-    project_images = models.ImageField(upload_to='uploads/projects/', null=True)
+    project_images = models.ImageField(upload_to='static/images/projects/', null=True, blank=True)
     project_category = models.ForeignKey(ProjectCategory, on_delete=models.CASCADE)
 
     class Meta:
