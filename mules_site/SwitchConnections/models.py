@@ -9,7 +9,7 @@ from .utils import delete_old_image
 class TeamMembers(models.Model):
     name = models.CharField(max_length=100)
     position = models.CharField(max_length=100)
-    bio = models.CharField(max_length=250)
+    bio = models.TextField(max_length=1500)
     profile_picture = models.ImageField(upload_to='static/images/team', null=True, blank=True)
 
     class Meta:
