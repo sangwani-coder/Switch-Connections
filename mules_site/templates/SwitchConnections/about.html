@@ -3,14 +3,15 @@
 {% block title %}Switch Connections - About us{% endblock %}
 
 {% block content %}
-<p>Mission: {{company_info.mission}}</p>
-<p>Vision: {{company_info.vision}}</p>
-<p>History: {{company_info.history}}</p>
+<p>Mission: {{company_info.mission}}|default:"None"</p>
+<p>Vision: {{company_info.vision}}|default:"None"</p>
+<p>History: {{company_info.history|default:"None"}}</p>
 <br>
+<h2>The Team</h2>
 {% for member in team %}
-    <p>Name: {{member.name }}</p>
-    <p>Position: {{ member.position }}</p>
-    <p>Bio: {{ member.bio }}</p>
+    <p>Name: {{member.name |default:"None" }}</p>
+    <p>Position: {{ member.position |default:"None"}}</p>
+    <p>Bio: {{ member.bio |default:"None"}}</p>
     <br>
 {% endfor %}
 {% endblock %}

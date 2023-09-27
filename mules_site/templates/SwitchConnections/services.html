@@ -5,6 +5,6 @@
 
 {% block content %}
 {% for service in services %}
-    <h2>Name: <a href="{% url 'service_detail' service.id %}">{{ service.service_name }}</a></h2>
+    <h2>Name: <a href="{% url 'service_detail' service.id %}">{{ service.service_name |default:"None"}}</a></h2>
 {% endfor %}
 {% endblock %}

@@ -4,9 +4,9 @@
 
 {% block content %}
 {% for project in projects %}
-    <p>Project name: {{ project.project_name}}</p>
-    <p>Project description: {{ project.project_description}}</p>
-    <p>Project category: {{project.project_category}}</p>
+    <p>Project name: {{ project.project_name|default:"None"}}</p>
+    <p>Project description: {{ project.project_description|default:"None"}}</p>
+    <p>Project category: {{project.project_category|default:"None"}}</p>
     <br>
 {% endfor %}
 {% endblock %}

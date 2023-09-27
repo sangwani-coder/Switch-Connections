@@ -4,8 +4,8 @@
 {% block title %}Switch Connections - Project details{% endblock %}
 
 {% block content %}
-<h3>Name: {{ project.project_name }}</h3>
-<p>Description: {{ project.project_description }}</p>
-<p>Category: {{ project.project_category }}</p>
-<p>Price: {{ project.project_images }}</p>
+<h3>Name: {{ project.project_name |default:"None"}}</h3>
+<p>Description: {{ project.project_description |default:"None"}}</p>
+<p>Category: {{ project.project_category |default:"None"}}</p>
+<p>Price: {{ project.project_images |default:"None"}}</p>
 {% endblock %}
