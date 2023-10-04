@@ -6,11 +6,11 @@
 <div class="d-flex justify-content-center">
     <h2>Contact Us for a Free Quote</h2>
 </div>
-<div class="d-flex justify-content-center">
-    <p><strong>Phone 1: </strong> {{contact_info.phone_number_1 | default:"Not set"}}</p> |
-    <p><strong>Phone 2: </strong> {{contact_info.phone_number_2 | default:"Not set"}}</p> |
-    <p><strong>Address: </strong> {{contact_info.physical_address | default:"None"}}</p> |
-    <p><strong>Email Address: </strong> {{contact_info.email_address|default:"None"}}</p>
+<div class="justify-content-center">
+    <p><strong>Phone 1: </strong> {{contact_info.phone_number_1 | default:"Not set"}}</p><br>
+    <p><strong>Phone 2: </strong> {{contact_info.phone_number_2 | default:"Not set"}}</p><br>
+    <p><strong>Address: </strong> {{contact_info.physical_address | default:"None"}}</p><br>
+    <p><strong>Email Address: </strong> {{contact_info.email_address|default:"None"}}</p><br>
 </div>
 
 {% endblock %}

@@ -25,11 +25,10 @@ class ContactInformationAdmin(admin.ModelAdmin):
     list_display = ['physical_address', 'phone_number_1', 'phone_number_1', 'email_address']
     
 class ServiceCategoryAdmin(admin.ModelAdmin):
-    list_display = ['category_name', 'category_description']
+    list_display = ['category_name']
 
 class ServiceListingAdmin(admin.ModelAdmin):
     list_display = ['service_name', 'service_description', 'service_price', 'service_category']
-
 
 class BannerAdmin(admin.ModelAdmin):
     list_display = ["cover_image"]

@@ -4,7 +4,13 @@ from . import models
 def index(request):
     banner = models.BannerImage.objects.last()
     template_name = 'SwitchConnections/index.html'
-    return render(request, template_name, {'banner':banner})
+    services = models.ServiceListings.objects.all()
+
+    context = {
+        'banner':banner,
+        'services':services
+    }
+    return render(request, template_name, context)
 
 def about(request):
     company_info = models.CompanyInformation.objects.first()

@@ -4,8 +4,16 @@
 {% block title %}Switch Connections - Service details{% endblock %}
 
 {% block content %}
-<h3>Name: {{ service.service_name |default:"None"}}</h3>
-<p>Description: {{ service.service_description |default:"None"}}</p>
-<p>Category: {{ service.service_category |default:"None"}}</p>
-<p>Price: {{ service.service_price |default:"None"}}</p>
+
+<div class="services">
+    <div class="service">
+        <h5>Title: {{ service.service_name |default:"None"}}</h5>
+        <p>{{ service.service_description |default:"None"}}</p><br>
+        {% if service.service_price %}
+            <h5>Price: {{ service.service_price}}</h5>
+        {% endif %}
+        <h6>Category: {{ service.service_category |default:"None"}}</h6>
+    </div>
+    <!-- Add more service divs as needed -->
+</div>
 {% endblock %}

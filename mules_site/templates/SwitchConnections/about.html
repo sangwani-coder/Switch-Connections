@@ -3,24 +3,21 @@
 {% block title %}Switch Connections - About us{% endblock %}
 
 {% block content %}
-<!-- <div>
-    <p>Mission: {{company_info.mission}} | "None"</p>
-    <p>Vision: {{company_info.vision}} | default:"None"</p>
-    <p>History: {{company_info.history | default:"None"}}</p>
-
-</div> -->
 <br>
 <h />
 <h2>The Team</h2>
 <br>
-<div>
+<div class="team-members">
     {% for member in team %}
-        <img src="{{member.profile_picture.url}}" class="float-md-end" style="height: 250px; width: 250px;">
-        <p>Name: {{member.name |default:"None" }}</p>
-        <p>Position: {{ member.position |default:"None"}}</p>
-        <p>Bio: {{ member.bio |default:"None"}}</p>
-        <hr>
-        <br>
+        <div class="member">
+            <img src="{{member.profile_picture.url}}" class="profile-picture" alt="{{ member.name }}">
+            <p>Name: {{member.name |default:"None" }}</p>
+            <p>Position: {{ member.position |default:"None"}}</p>
+            <p>Bio: {{ member.bio |default:"None"}}</p>
+        </div>
+        {% if forloop.counter|divisibleby:3 %}
+            </div><div class="team-members">
+        {% endif %}
     {% endfor %}
 </div>
 <br>

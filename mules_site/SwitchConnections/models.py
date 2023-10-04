@@ -122,8 +122,6 @@ class ProjectListings(models.Model):
 #SERVICES
 class ServiceCategory(models.Model):
     category_name = models.CharField(max_length=100)
-    category_description = models.CharField(max_length=250)
-
     class Meta:
         verbose_name_plural = "Service categories"
 
@@ -133,8 +131,8 @@ class ServiceCategory(models.Model):
 
 class ServiceListings(models.Model):
     service_name = models.CharField(max_length=100)
-    service_description = models.CharField(max_length=250)
-    service_price = models.CharField(max_length=10)
+    service_description = models.TextField(max_length=300)
+    service_price = models.CharField(max_length=10, null=True, blank=True)
     service_category = models.ForeignKey(ServiceCategory, on_delete=models.CASCADE)
 
     class Meta:

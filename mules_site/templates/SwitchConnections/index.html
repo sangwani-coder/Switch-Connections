@@ -1,10 +1,13 @@
 {% extends 'SwitchConnections/base.html' %}
 {% load static %}
+{% load range_filter %}
 {% block title %}Switch Connections - Home{% endblock %}
 {% block content %}
 <!-- Hero -->
 <div id="intro-sc" class="p-5 text-center bg-image rounded-3" style="
     background-image: url('{{ banner.cover_image.url }}');
+    background-size: cover; /* Ensure the image covers the entire element */
+    background-position: center center; /* Center the image both horizontally and vertically */
     height: 500px;
   ">
     <div class="mask" style="background-color: rgba(0, 0, 0, 0.6);">
@@ -16,6 +19,20 @@
             </div>
         </div>
     </div>
+</div>
+<br>
+<h3>Services</h3>
+<div class="services">
+    {% for service in 3|range_filter %}
+    <div class="service">
+        <a href="{% url 'service_detail' service.id %}">
+
+            <h3 class="service-title">{{ service.service_name }}</h3>
+            <p>{{ service.service_description }}</p><br>
+            <h6 class="category">Category: {{ service.service_category }}</h6>
+        </a>
+    </div>
+    {% endfor %}
 </div>
 <!-- Hero -->
 {% endblock %}
