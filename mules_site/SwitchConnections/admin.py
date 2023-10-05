@@ -1,16 +1,16 @@
 from django.contrib import admin
 from .models import ServiceCategory, ServiceListings
 from .models import CompanyInformation, TeamMembers
-from .models import ProjectListings, ProjectCategory
+from .models import ProjectListings, ProjectImage
 from .models import BannerImage, LogoImage
 from .models import ContactFormSubmissions, ContactInformation
 
 
 class ProjectAdmin(admin.ModelAdmin):
-    list_display = ['project_name', 'project_description', 'project_category']
+    list_display = ['project_name', 'project_description', 'service_category']
 
-class ProjectCategoryAdmin(admin.ModelAdmin):
-     list_display = ['category_name', 'category_description']
+class ProjectImageAdmin(admin.ModelAdmin):
+    list_display = ["image", "project"]
 
 class CompanyInforAdmin(admin.ModelAdmin):
     list_display = ['mission', 'vision', 'history']
@@ -47,8 +47,8 @@ admin.site.register(BannerImage, BannerAdmin)
 # Logo
 admin.site.register(LogoImage, LogoAdmin)
 #PORTFOLIO
-admin.site.register(ProjectCategory, ProjectCategoryAdmin)
 admin.site.register(ProjectListings, ProjectAdmin)
+admin.site.register(ProjectImage, ProjectImageAdmin)
 #SERVICES
 admin.site.register(ServiceListings, ServiceListingAdmin)
 admin.site.register(ServiceCategory, ServiceCategoryAdmin)

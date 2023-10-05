@@ -2,15 +2,42 @@
 
 {% block title %}Switch Connections - Contact us{% endblock %}
 
+{% block herosub %}<h4>This is the contact page</h4>{% endblock %}
 {% block content %}
-<div class="d-flex justify-content-center">
-    <h2>Contact Us for a Free Quote</h2>
+<!-- Hero -->
+<!-- <div id="intro-sc" class="p-5 text-center bg-image rounded-3" style="
+    background-image: url('{{ banner.cover_image.url }}');
+    background-size: cover; /* Ensure the image covers the entire element */
+    background-position: center center; /* Center the image both horizontally and vertically */
+    height: 500px;
+  ">
+    <div class="mask" style="background-color: rgba(0, 0, 0, 0.6);">
+        <div class="d-flex justify-content-center align-items-center h-100">
+            <div class="text-white">
+                <h1 class="mb-3">Switch Connections</h1>
+                <h4 class="mb-3">Creativity Redefined</h4>
+                <a class="btn btn-outline-light btn-lg" href="{% url 'contact_us' %}" role="button">Hire Us</a>
+            </div>
+        </div>
+    </div>
 </div>
-<div class="justify-content-center">
+<br> -->
+<div class="d-flex justify-content-center">
+    <!-- <h2>Contact Us for a Free Quote</h2> -->
+</div>
+<!-- <div class="justify-content-center">
     <p><strong>Phone 1: </strong> {{contact_info.phone_number_1 | default:"Not set"}}</p><br>
     <p><strong>Phone 2: </strong> {{contact_info.phone_number_2 | default:"Not set"}}</p><br>
-    <p><strong>Address: </strong> {{contact_info.physical_address | default:"None"}}</p><br>
-    <p><strong>Email Address: </strong> {{contact_info.email_address|default:"None"}}</p><br>
+    <p><strong>Address: </strong> {{contact_info.physical_address | default:"Not set"}}</p><br>
+    <p><strong>Email Address: </strong> {{contact_info.email_address|default:"Not set"}}</p><br>
+</div> -->
+<div class="col-md-4">
+    <h3>Contact Us</h3>
+    <address>
+        <p>{{contact_info.physical_address | default:"Not set"}}</p>
+        <!-- <p>City, Country</p> -->
+        <p>Email: <a href="mailto:info@example.com">{{contact_info.email_address|default:"Not set"}}</a></p>
+        <p>Phone: <a href="tel:+123456789">{{contact_info.phone_number_1 | default:"Not set"}}</a></p>
+    </address>
 </div>
-
 {% endblock %}

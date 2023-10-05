@@ -9,7 +9,7 @@ from .utils import delete_old_image
 class TeamMembers(models.Model):
     name = models.CharField(max_length=100)
     position = models.CharField(max_length=100)
-    bio = models.TextField(max_length=1500)
+    bio = models.TextField(max_length=120)
     profile_picture = models.ImageField(upload_to='static/images/team', null=True, blank=True)
 
     class Meta:
@@ -19,8 +19,8 @@ class TeamMembers(models.Model):
         return f'{self.name}, {self.position}'
     
 class CompanyInformation(models.Model):
-    mission = models.CharField(max_length=50)
-    vision = models.CharField(max_length=100)
+    mission = models.CharField(max_length=120)
+    vision = models.CharField(max_length=120)
     history = models.CharField(max_length=1000)
 
     class Meta:
@@ -58,19 +58,6 @@ class ContactFormSubmissions(models.Model):
         return f'{self.created_at}, {self.name}, {self.message}, {self.mobile}'
 
 
-# def delete_old_image(instance, filename):
-#         print("instance", instance.pk)
-#         # If an old image exists, delete it before saving the new one
-#         if instance.pk:
-#             print('OLD FILE:', instance.pk)
-#             old_instance = BannerImage.objects.get(pk=instance.pk)
-#             if old_instance.cover_image and old_instance.cover_image != instance.cover_image:
-#                 old_instance.cover_image.delete(save=False)
-#             if old_instance.logo_image and old_instance.logo_image != instance.logo_image:
-#                 old_instance.logo_image.delete(save=False)
-#         return "static/images/" + filename
-
-# Cover
 class LogoImage(models.Model):
     logo_image = models.ImageField(upload_to="static/logo", null=True)
 
@@ -89,34 +76,6 @@ class BannerImage(models.Model):
 
     def __str__(self):
         return self.cover_image.path
-
-
-# PORTFOLIO
-class ProjectCategory(models.Model):
-    category_name = models.CharField(max_length=100)
-    category_description = models.CharField(max_length=1000)
-
-    class Meta:
-        verbose_name_plural = "Project Categories"
-
-    def __str__(self) -> str:
-        return self.category_name
-
-
-class ProjectListings(models.Model):
-    project_name = models.CharField(max_length=100)
-    project_description = models.CharField(max_length=1000)
-    project_images = models.ImageField(upload_to='static/images/projects/', null=True, blank=True)
-    project_category = models.ForeignKey(ProjectCategory, on_delete=models.CASCADE)
-
-    class Meta:
-        verbose_name_plural = "Project Listings"
-
-    def get_absolute_url(self):
-        return reverse('portfolio_detail', args=[str(self.id)])
-
-    def __str__(self):
-        return self.project_name
     
 
 #SERVICES
@@ -131,7 +90,7 @@ class ServiceCategory(models.Model):
 
 class ServiceListings(models.Model):
     service_name = models.CharField(max_length=100)
-    service_description = models.TextField(max_length=300)
+    service_description = models.TextField(max_length=200)
     service_price = models.CharField(max_length=10, null=True, blank=True)
     service_category = models.ForeignKey(ServiceCategory, on_delete=models.CASCADE)
 
@@ -143,4 +102,25 @@ class ServiceListings(models.Model):
     
     def __str__(self):
         return self.service_name
+    
+
+class ProjectImage(models.Model):
+    image = models.ImageField(upload_to='static/images/projects/', null=True, blank=True)
+    project = models.ForeignKey('ProjectListings', on_delete=models.CASCADE)
+
+# PORTFOLIO
+class ProjectListings(models.Model):
+    project_name = models.CharField(max_length=100)
+    project_description = models.CharField(max_length=1000)
+    project_images = models.ManyToManyField(ProjectImage, blank=True)
+    service_category = models.ForeignKey(ServiceCategory, on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name_plural = "Project Listings"
+
+    def get_absolute_url(self):
+        return reverse('portfolio_detail', args=[str(self.id)])
+
+    def __str__(self):
+        return self.project_name
     

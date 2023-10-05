@@ -2,28 +2,30 @@
 {% load static %}
 {% load range_filter %}
 {% block title %}Switch Connections - Home{% endblock %}
+{% block herosub%}<h4>Creativity Redifined</h4>{% endblock %}
 {% block content %}
-<!-- Hero -->
-<div id="intro-sc" class="p-5 text-center bg-image rounded-3" style="
-    background-image: url('{{ banner.cover_image.url }}');
-    background-size: cover; /* Ensure the image covers the entire element */
-    background-position: center center; /* Center the image both horizontally and vertically */
-    height: 500px;
-  ">
-    <div class="mask" style="background-color: rgba(0, 0, 0, 0.6);">
-        <div class="d-flex justify-content-center align-items-center h-100">
-            <div class="text-white">
-                <h1 class="mb-3">Switch Connections</h1>
-                <h4 class="mb-3">Creativity Redefined</h4>
-                <a class="btn btn-outline-light btn-lg" href="{% url 'contact_us' %}" role="button">Hire Us</a>
-            </div>
-        </div>
-    </div>
-</div>
 <br>
-<h3>Services</h3>
+{% if project_images %}
+<h3 class="home-header">Projects</h3>
 <div class="services">
-    {% for service in 3|range_filter %}
+    {% for image in project_images.all %}
+    <div class="service">
+        <a href="{% url 'portfolio' %}">
+
+            <h4>Project name: {{ image.project }}"</h4>
+            <img src="{{ image.image.url }}" alt="Project Image" class="project-image">
+        </a>
+
+    </div>
+
+
+    {% endfor %}
+</div>
+{% endif %}
+{% if services %}
+<h3 class="home-header">Services</h3>
+<div class="services">
+    {% for service in services %}
     <div class="service">
         <a href="{% url 'service_detail' service.id %}">
 
@@ -34,5 +36,23 @@
     </div>
     {% endfor %}
 </div>
-<!-- Hero -->
+{% endif %}
+<!-- team -->
+{% if team %}
+<h3 class="home-header">Meet The Team</h3>
+<div class="team-members">
+    {% for member in team %}
+    <div class="member">
+        <img src="{{member.profile_picture.url}}" class="profile-picture" alt="{{ member.name }}">
+        <p>Name: {{member.name |default:"None" }}</p>
+        <p>Position: {{ member.position |default:"None"}}</p>
+        <p>Bio: {{ member.bio |default:"None"}}</p>
+    </div>
+    {% if forloop.counter|divisibleby:3 %}
+</div>
+<div class="team-members">
+    {% endif %}
+    {% endfor %}
+</div>
+{% endif %}
 {% endblock %}
