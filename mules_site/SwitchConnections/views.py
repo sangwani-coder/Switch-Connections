@@ -1,5 +1,10 @@
 from django.shortcuts import render, get_object_or_404
 from . import models
+from django.urls import reverse_lazy
+from django.views.generic.edit import FormView
+from .forms import ContactFormSubmissionsForm
+from django.contrib import messages
+
 
 def index(request):
     banner = models.BannerImage.objects.last()
@@ -34,16 +39,26 @@ def about(request):
 
     return render(request, 'SwitchConnections/about.html', context)
 
-def contact(request):
-    if request.method == "POST":
-        pass
-    banner = models.BannerImage.objects.last()
-    contact_info = models.ContactInformation.objects.first()
-    context = {
-        'banner':banner,
-        'contact_info':contact_info
-    }
-    return render(request, 'SwitchConnections/contact.html', context)
+
+class ContactFormView(FormView):
+    form_class = ContactFormSubmissionsForm
+    template_name = 'SwitchConnections/contact.html'
+    success_url = reverse_lazy('home')
+
+    def form_valid(self, form):
+        # Save the form data to the database
+        form.save()
+        messages.success(self.request, 'Your message submission was successful!')
+        return super().form_valid(form)
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        contact_info = models.ContactInformation.objects.first()
+
+        # Add additional context variables here
+        context['contact_info'] = contact_info
+
+        return context
 
 
 def services(request):

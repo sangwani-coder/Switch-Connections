@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.urls import path
 from django.conf.urls.static import static
+from .views import ContactFormView
 
 from . import views
 
@@ -18,7 +19,9 @@ urlpatterns = [
     # ex: /services/1
     path("service/<int:service_id>/", views.service_detail, name="service_detail"),
     # ex: /contact/
-    path("contact/", views.contact, name="contact_us"),
+    # path("contact/", views.contact, name="contact_us"),
+    path('contact/', ContactFormView.as_view(), name='contact_us'),
+    
 ]
 
 if settings.DEBUG:

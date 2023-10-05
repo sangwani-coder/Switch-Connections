@@ -1,9 +1,28 @@
 {% extends 'SwitchConnections/base.html' %}
 
 {% block title %}Switch Connections - About us{% endblock %}
-{% block herosub%}<h4>Crafting Dreams into Reality: Your Trusted Carpentry Partner</h4>{% endblock %}
+<h4>Crafting Dreams into Reality: Your Trusted Carpentry Partner</h4>
 
 {% block content %}
+<!-- Hero -->
+<div id="intro-sc" class="p-5 text-center bg-image rounded-3" style="
+background-image: url('{{ banner.cover_image.url }}');
+background-size: cover; /* Ensure the image covers the entire element */
+background-position: center center; /* Center the image both horizontally and vertically */
+height: 500px;
+">
+    <div class="mask" style="background-color: rgba(0, 0, 0, 0.6);">
+        <div class="d-flex justify-content-center align-items-center h-100">
+            <div class="text-white">
+                <h1 class="mb-3">Switch Connections</h1>
+                <h4 class="mb-3">Creativity Redifined</h4>
+                <a class="btn btn-outline-light btn-lg" href="{% url 'contact_us' %}" role="button">Talk to Us!</a>
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+<!-- end hero -->
 <br>
 <h />
 <h2 class="home-header">About</h2>

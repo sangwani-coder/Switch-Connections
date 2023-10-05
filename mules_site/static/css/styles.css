@@ -245,3 +245,17 @@ img:active {
     -webkit-transform: scale(2);
     transform: scale(2);
 }
+
+/* Styles for success messages */
+.message.success {
+    background-color: #E8F5E9; /* Greenish background */
+    color: #4CAF50; /* Green text color */
+    text-align: center; /* Center the text */
+}
+
+/* Styles for error messages */
+.message.error {
+    background-color: #FFF3E0; /* Orangeish background */
+    color: #FF9800; /* Orange text color */
+    text-align: center; /* Center the text */
+}
