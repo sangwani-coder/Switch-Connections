@@ -21,20 +21,22 @@ def index(request):
 
 def about(request):
     banner = models.BannerImage.objects.last()
-    company_info = models.CompanyInformation.objects.first()
+    about = models.AboutStatement.objects.first()
     team = models.TeamMembers.objects.all()
     contact_info = models.ContactInformation.objects.first()
     context = {
-        'company_info':company_info,
         'banner':banner,
         'services':services,
         'team':team,
-        'contact_info':contact_info
+        'contact_info':contact_info,
+        'about':about
     }
 
     return render(request, 'SwitchConnections/about.html', context)
 
 def contact(request):
+    if request.method == "POST":
+        pass
     banner = models.BannerImage.objects.last()
     contact_info = models.ContactInformation.objects.first()
     context = {

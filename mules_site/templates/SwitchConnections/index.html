@@ -6,40 +6,37 @@
 {% block content %}
 <br>
 {% if project_images %}
-<h3 class="home-header">Projects</h3>
+<h5 class="home-header">Switch Connections Services</h5>
 <div class="services">
     {% for image in project_images.all %}
     <div class="service">
         <a href="{% url 'portfolio' %}">
 
-            <h4>Project name: {{ image.project }}"</h4>
+            <!-- <h6>{{ image.project }}"</h6> -->
             <img src="{{ image.image.url }}" alt="Project Image" class="project-image">
+            <!-- <p>{{ image.project.project_description}}</p> -->
         </a>
 
     </div>
 
-
     {% endfor %}
 </div>
 {% endif %}
-{% if services %}
-<h3 class="home-header">Services</h3>
+{% if testimonials %}
+<h3 class="home-header">Testimonials</h3>
 <div class="services">
-    {% for service in services %}
+    {% for testimony in testimonials %}
     <div class="service">
-        <a href="{% url 'service_detail' service.id %}">
-
             <h3 class="service-title">{{ service.service_name }}</h3>
-            <p>{{ service.service_description }}</p><br>
-            <h6 class="category">Category: {{ service.service_category }}</h6>
-        </a>
+            <p>{{ testimony.text|linebreaksbr|safe}}</p><br>
+            <h6>{{ testimony.customer}}</h6>
     </div>
     {% endfor %}
 </div>
 {% endif %}
 <!-- team -->
 {% if team %}
-<h3 class="home-header">Meet The Team</h3>
+<h5 class="home-header">Our Team</h5>
 <div class="team-members">
     {% for member in team %}
     <div class="member">

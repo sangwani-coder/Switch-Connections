@@ -4,14 +4,12 @@
 {% block herosub%}<h4>This is the portfolio page</h4>{% endblock %}
 
 {% block content %}
-<h3 class="home-header">Projects</h3>
+<!-- <h3 class="home-header">Projects</h3> -->
 <div class="services">
     {% for image in project_images.all %}
     <div class="service">
-        <h4>Project name: {{ image.project }}"</h4>
-        <p>Description: {{ image.project.project_description }}"</p>
+        <!-- <p>Description: {{ image.project.project_description }}"</p> -->
         <img src="{{ image.image.url }}" alt="Project Image" class="project-image">
-        <h6>Category: {{ image.project.service_category }}"</h6>
     </div>
     {% endfor %}
 </div>

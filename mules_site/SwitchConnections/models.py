@@ -1,7 +1,5 @@
 from django.db import models
 from django.urls import reverse
-from django.dispatch import receiver
-from django.db.models.signals import pre_save
 from .utils import delete_old_image
 
 
@@ -16,20 +14,17 @@ class TeamMembers(models.Model):
         verbose_name_plural = "Team members"
 
     def __str__(self):
-        return f'{self.name}, {self.position}'
-    
-class CompanyInformation(models.Model):
-    mission = models.CharField(max_length=120)
-    vision = models.CharField(max_length=120)
-    history = models.CharField(max_length=1000)
+        return f'{self.name}, {self.position}'    
+
+class AboutStatement(models.Model):
+    text = models.TextField(max_length=3000, null=True, blank=True)
 
     class Meta:
-        verbose_name_plural = "Company information"
+        verbose_name_plural = "About Statement"
 
-    def __str__(self):
-        return f'{self.mission}, {self.vision}, {self.history}'
+        def __str__(self):
+            return self.text
     
-
 # CONTANT US
 class ContactInformation(models.Model):
     physical_address = models.CharField(max_length=100)
@@ -45,7 +40,8 @@ class ContactInformation(models.Model):
     
     
 class ContactFormSubmissions(models.Model):
-    name = models.CharField(max_length=100)
+    first_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100, null=True, blank=True)
     email = models.CharField(max_length=100)
     mobile = models.CharField(max_length=100)
     message = models.CharField(max_length=1000)
