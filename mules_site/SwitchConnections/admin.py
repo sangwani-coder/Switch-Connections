@@ -53,4 +53,6 @@ admin.site.register(ProjectImage, ProjectImageAdmin)
 admin.site.register(ServiceListings, ServiceListingAdmin)
 admin.site.register(ServiceCategory, ServiceCategoryAdmin)
 
+admin.site.site_title = "site admin"
+admin.site.site_header = "Switch Connections administration"
 # username: admin pass: test#123
