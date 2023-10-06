@@ -9,47 +9,60 @@ from .models import ContactFormSubmissions, ContactInformation
 class ProjectAdmin(admin.ModelAdmin):
     list_display = ['project_name', 'project_description', 'service_category']
 
+
 class ProjectImageAdmin(admin.ModelAdmin):
     list_display = ["image", "project"]
+
 
 class AboutStatementAdmin(admin.ModelAdmin):
     list_display = ["text"]
 
+
 class TeamMembersAdmin(admin.ModelAdmin):
     list_display = ['name', 'position', 'bio', 'profile_picture']
-    
+
+
 class ContactFormAdmin(admin.ModelAdmin):
-    list_display = ['first_name', 'last_name', 'email', 'mobile', 'message', 'created_at']
-    
+    list_display = ['first_name', 'last_name',
+                    'email', 'mobile', 'message', 'created_at']
+
+
 class ContactInformationAdmin(admin.ModelAdmin):
-    list_display = ['physical_address', 'phone_number_1', 'phone_number_1', 'email_address']
-    
+    list_display = ['physical_address', 'phone_number_1', 'phone_number_1',
+                    'email_address', "facebook", "twitter", "instagram"]
+
+
 class ServiceCategoryAdmin(admin.ModelAdmin):
     list_display = ['category_name']
 
+
 class ServiceListingAdmin(admin.ModelAdmin):
-    list_display = ['service_name', 'service_description', 'service_price', 'service_category']
+    list_display = ['service_name', 'service_description',
+                    'service_price', 'service_category']
+
 
 class BannerAdmin(admin.ModelAdmin):
     list_display = ["cover_image"]
 
+
 class LogoAdmin(admin.ModelAdmin):
     list_display = ["logo_image"]
 
-#ABOUT_US
+
+# ABOUT_US
 admin.site.register(TeamMembers, TeamMembersAdmin)
 admin.site.register(AboutStatement, AboutStatementAdmin)
-#CONTACT US
+# CONTACT US
 admin.site.register(ContactFormSubmissions, ContactFormAdmin)
 admin.site.register(ContactInformation, ContactInformationAdmin)
-#Banner
+# Banner
 admin.site.register(BannerImage, BannerAdmin)
 # Logo
 admin.site.register(LogoImage, LogoAdmin)
-#PORTFOLIO
+# PORTFOLIO
 admin.site.register(ProjectListings, ProjectAdmin)
 admin.site.register(ProjectImage, ProjectImageAdmin)
-#SERVICES
+# SERVICES
 admin.site.register(ServiceListings, ServiceListingAdmin)
 admin.site.register(ServiceCategory, ServiceCategoryAdmin)
 

@@ -5,11 +5,9 @@ __pycache__/
 mules_site/SwitchConnections/migrations/
 *.sqlite3*
 # Ignore JPEG files
-*.jpg
-
 # Ignore PNG files
-*.png
 # Add more extensions if needed
 # *.gif
 # *.bmp
 .coverage
+.vscode/

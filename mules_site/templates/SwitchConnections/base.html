@@ -28,7 +28,7 @@
 <body>
   <nav class="navbar navbar-expand-sm navbar-light bg-light">
     <a class="navbar-brand" href="{% url 'home' %}">
-      <img src="../../static/images/logo/logo.jpg" width="95" height="70" class="logo-img">
+      <img src="../../static/images/logo/logo.jpg" width="100" height="100" class="logo-img">
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
       aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -69,7 +69,7 @@
           <h3>Quick Links</h3>
           <ul class="list-unstyled">
             <li><a href="{% url 'home' %}">Home</a></li>
-            <li><a href="{% url 'services' %}">Services</a></li>
+            <!-- <li><a href="{% url 'services' %}">Services</a></li> -->
             <li><a href="{% url 'portfolio' %}">Portfolio</a></li>
             <li><a href="{% url 'about_us' %}">About Us</a></li>
             <li><a href="{% url 'contact_us' %}">Contact Us</a></li>
@@ -87,9 +87,9 @@
         <div class="col-md-4">
           <h3>Social Media</h3>
           <ul class="list-unstyled">
-            <li><a href="#"><i class="fa fa-facebook"></i> Facebook</a></li>
-            <li><a href="#"><i class="fa fa-twitter"></i> Twitter</a></li>
-            <li><a href="#"><i class="fa fa-instagram"></i> Instagram</a></li>
+            <li><a href="{{contact_info.facebook | default:"#"}}" target="_blank"><i class="fa fa-facebook"></i> Facebook</a></li>
+            <li><a href="{{contact_info.twitter | default:"#"}}" target="_blank"><i class="fa fa-twitter"></i> Twitter</a></li>
+            <li><a href="{{contact_info.instagram | default:"#"}}" target="_blank"><i class="fa fa-instagram"></i> Instagram</a></li>
           </ul>
         </div>
       </div>

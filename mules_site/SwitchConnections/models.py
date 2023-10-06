@@ -31,6 +31,10 @@ class ContactInformation(models.Model):
     phone_number_1 = models.CharField(max_length=13)
     phone_number_2 = models.CharField(max_length=13)
     email_address = models.CharField(max_length=100)
+    facebook = models.CharField(max_length=100, null=True, blank=True)
+    instagram = models.CharField(max_length=100, null=True, blank=True)
+    twitter = models.CharField(max_length=100, null=True, blank=True)
+    
 
     class Meta:
         verbose_name_plural = "Contact information"
@@ -51,7 +55,7 @@ class ContactFormSubmissions(models.Model):
         verbose_name_plural = "Contact form submissions" 
 
     def __str__(self):
-        return f'{self.created_at}, {self.name}, {self.message}, {self.mobile}'
+        return f'{self.created_at}, {self.first_name}, {self.last_name}, {self.message}, {self.mobile}'
 
 
 class LogoImage(models.Model):

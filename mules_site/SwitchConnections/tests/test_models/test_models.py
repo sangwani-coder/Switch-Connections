@@ -1,44 +1,32 @@
 from django.test import TestCase
 from SwitchConnections.models import (
     ServiceCategory, ServiceListings,
-    ProjectCategory, ProjectListings,
-    TeamMembers, CompanyInformation,
+    ProjectListings, TeamMembers,
     ContactInformation, ContactFormSubmissions,
     BannerImage,
-    )
+)
 
 from django.test import TestCase
-from django.core.files.uploadedfile import SimpleUploadedFile
-from SwitchConnections.models import delete_old_image
-
 from mules_site.settings import BASE_DIR
 
 # test models
+
+
 class ServiceCategoryTestClass(TestCase):
     @classmethod
     def setUpTestData(cls) -> None:
         ServiceCategory.objects.create(
-            category_name="Wood works", category_description="Wood work products")
+            category_name="Wood works")
 
     def test_category_name_label(self):
         category = ServiceCategory.objects.get(id=1)
         field_label = category._meta.get_field('category_name').verbose_name
         self.assertEqual(field_label, 'category name')
 
-    def test_category_description_label(self):
-        category = ServiceCategory.objects.get(id=1)
-        field_label = category._meta.get_field('category_description').verbose_name
-        self.assertEqual(field_label, 'category description')
-
     def test_category_name_max_length(self):
         category = ServiceCategory.objects.get(id=1)
         max_length = category._meta.get_field('category_name').max_length
         self.assertEqual(max_length, 100)
-
-    def test_category_description_max_length(self):
-        category = ServiceCategory.objects.get(id=1)
-        max_length = category._meta.get_field('category_description').max_length
-        self.assertEqual(max_length, 250)
 
     # test custom methods
     def test_object_name_is_category_name(self):
@@ -46,16 +34,17 @@ class ServiceCategoryTestClass(TestCase):
         expected_object_name = f'{category.category_name}'
         self.assertEqual(str(category), expected_object_name)
 
+
 class ServiceListingsTestClass(TestCase):
     @classmethod
     def setUpTestData(cls):
         category = ServiceCategory.objects.create(
-            category_name="Wood works", category_description="Wood work products")
+            category_name="Wood works")
         ServiceListings.objects.create(
             service_name="desk making", service_description="school furnture",
             service_price='123', service_category=category,
-            )
-        
+        )
+
     def test_service_name_label(self):
         service = ServiceListings.objects.get(id=1)
         field_label = service._meta.get_field('service_name').verbose_name
@@ -63,7 +52,8 @@ class ServiceListingsTestClass(TestCase):
 
     def test_service_description_label(self):
         service = ServiceListings.objects.get(id=1)
-        field_label = service._meta.get_field('service_description').verbose_name
+        field_label = service._meta.get_field(
+            'service_description').verbose_name
         self.assertEqual(field_label, 'service description')
 
     def test_service_price_label(self):
@@ -76,7 +66,6 @@ class ServiceListingsTestClass(TestCase):
         field_label = service._meta.get_field('service_category').verbose_name
         self.assertEqual(field_label, 'service category')
 
-
     def test_service_name_max_length(self):
         service = ServiceListings.objects.get(id=1)
         max_length = service._meta.get_field('service_name').max_length
@@ -85,67 +74,24 @@ class ServiceListingsTestClass(TestCase):
     def test_service_description_max_length(self):
         service = ServiceListings.objects.get(id=1)
         max_length = service._meta.get_field('service_description').max_length
-        self.assertEqual(max_length, 250)
+        self.assertEqual(max_length, 200)
 
     def test_service_price_max_length(self):
         service = ServiceListings.objects.get(id=1)
         max_length = service._meta.get_field('service_price').max_length
         self.assertEqual(max_length, 10)
 
-    # test custom methods
-    def test_object_name_is_service_name(self):
-        service = ServiceListings.objects.get(id=1)
-        expected_object_name = f'{service.service_name}'
-        self.assertEqual(str(service), expected_object_name)
-
-    def test_get_absolute_url(self):
-        service = ServiceListings.objects.get(id=1)
-        # This will also fail if the urlconf is not defined.
-        self.assertEqual(service.get_absolute_url(), '/service/1')
-
-class ProjectCategoryTestClass(TestCase):
-    @classmethod
-    def setUpTestData(cls) -> None:
-        ProjectCategory.objects.create(
-            category_name="Test category", category_description="test category description")
-
-    def test_category_name_label(self):
-        category = ProjectCategory.objects.get(id=1)
-        field_label = category._meta.get_field('category_name').verbose_name
-        self.assertEqual(field_label, 'category name')
-
-    def test_category_description_label(self):
-        category = ProjectCategory.objects.get(id=1)
-        field_label = category._meta.get_field('category_description').verbose_name
-        self.assertEqual(field_label, 'category description')
-
-    def test_category_name_max_length(self):
-        category = ProjectCategory.objects.get(id=1)
-        max_length = category._meta.get_field('category_name').max_length
-        self.assertEqual(max_length, 100)
-
-    def test_category_description_max_length(self):
-        category = ProjectCategory.objects.get(id=1)
-        max_length = category._meta.get_field('category_description').max_length
-        self.assertEqual(max_length, 1000)
-
-    # test custom methods
-    def test_object_name_is_category_name(self):
-        category = ProjectCategory.objects.get(id=1)
-        expected_object_name = f'{category.category_name}'
-        self.assertEqual(str(category), expected_object_name)
 
 class ProjectsListingsTestClass(TestCase):
     @classmethod
     def setUpTestData(cls):
-        category = ProjectCategory.objects.create(
-            category_name="Test category name", category_description="Test category description")
-        image = str(BASE_DIR) + 'static/img/brass.jpg'
+        category = ServiceCategory.objects.create(
+            category_name="Test category name")
         ProjectListings.objects.create(
             project_name="test project", project_description="test project desc",
-            project_images=image, project_category=category,
-            )
-        
+            service_category=category,
+        )
+
     def test_project_name_label(self):
         project = ProjectListings.objects.get(id=1)
         field_label = project._meta.get_field('project_name').verbose_name
@@ -153,7 +99,8 @@ class ProjectsListingsTestClass(TestCase):
 
     def test_project_description_label(self):
         project = ProjectListings.objects.get(id=1)
-        field_label = project._meta.get_field('project_description').verbose_name
+        field_label = project._meta.get_field(
+            'project_description').verbose_name
         self.assertEqual(field_label, 'project description')
 
     def test_project_images_label(self):
@@ -161,11 +108,10 @@ class ProjectsListingsTestClass(TestCase):
         field_label = project._meta.get_field('project_images').verbose_name
         self.assertEqual(field_label, 'project images')
 
-    def test_project_category_label(self):
+    def test_service_category_label(self):
         project = ProjectListings.objects.get(id=1)
-        field_label = project._meta.get_field('project_category').verbose_name
-        self.assertEqual(field_label, 'project category')
-
+        field_label = project._meta.get_field('service_category').verbose_name
+        self.assertEqual(field_label, 'service category')
 
     def test_project_name_max_length(self):
         project = ProjectListings.objects.get(id=1)
@@ -186,7 +132,7 @@ class ProjectsListingsTestClass(TestCase):
     def test_get_absolute_url(self):
         project = ProjectListings.objects.get(id=1)
         # This will also fail if the urlconf is not defined.
-        self.assertEqual(project.get_absolute_url(), '/portfolio/1')
+        self.assertEqual(project.get_absolute_url(), '/portfolio/1/')
 
 
 class TeamMembersTestClass(TestCase):
@@ -196,7 +142,7 @@ class TeamMembersTestClass(TestCase):
         TeamMembers.objects.create(
             name='test member', position='test position',
             bio='test bio', profile_picture=image)
-        
+
     def test_member_name_label(self):
         member = TeamMembers.objects.get(id=1)
         field_label = member._meta.get_field('name').verbose_name
@@ -230,55 +176,13 @@ class TeamMembersTestClass(TestCase):
     def test_member_bio_max_length(self):
         member = TeamMembers.objects.get(id=1)
         max_length = member._meta.get_field('bio').max_length
-        self.assertEqual(max_length, 250)
+        self.assertEqual(max_length, 120)
 
     def test_object_name_is_name_comma_position(self):
         member = TeamMembers.objects.get(id=1)
         expected_object_name = f'{member.name}, {member.position}'
         self.assertEqual(str(member), expected_object_name)
-        
 
-class CompanyInformationTestClass(TestCase):
-    @classmethod
-    def setUpTestData(cls) ->  None:
-        CompanyInformation.objects.create(
-            mission="test mission", vision="test vision statement",
-            history='fake history data')
-        
-    def test_mission_label(self):
-        mission = CompanyInformation.objects.get(id=1)
-        field_label = mission._meta.get_field('mission').verbose_name
-        self.assertEqual(field_label, 'mission')
-
-    def test_vision_label(self):
-        vision = CompanyInformation.objects.get(id=1)
-        field_label = vision._meta.get_field('vision').verbose_name
-        self.assertEqual(field_label, 'vision')
-
-    def test_history_label(self):
-        history = CompanyInformation.objects.get(id=1)
-        field_label = history._meta.get_field('history').verbose_name
-        self.assertEqual(field_label, 'history')
-
-    def test_mission_max_length(self):
-        mission = CompanyInformation.objects.get(id=1)
-        max_length = mission._meta.get_field('mission').max_length
-        self.assertEqual(max_length, 50)
-
-    def test_vision_max_length(self):
-        vision = CompanyInformation.objects.get(id=1)
-        max_length = vision._meta.get_field('vision').max_length
-        self.assertEqual(max_length, 100)
-
-    def test_history_max_length(self):
-        history = CompanyInformation.objects.get(id=1)
-        max_length = history._meta.get_field('history').max_length
-        self.assertEqual(max_length, 1000)
-
-    def test_object_name_is_mission_comma_vision_comma_history(self):
-        infor = CompanyInformation.objects.get(id=1)
-        expected_object_name = f'{infor.mission}, {infor.vision}, {infor.history}'
-        self.assertEqual(str(infor), expected_object_name)
 
 class ContactInformationTestClass(TestCase):
     @classmethod
@@ -289,43 +193,43 @@ class ContactInformationTestClass(TestCase):
         )
 
     def test_physical_address_label(self):
-        address =  ContactInformation.objects.get(id=1)
+        address = ContactInformation.objects.get(id=1)
         field_label = address._meta.get_field('physical_address').verbose_name
         self.assertEqual(field_label, 'physical address')
 
     def test_phone_number_1_label(self):
-        phone =  ContactInformation.objects.get(id=1)
+        phone = ContactInformation.objects.get(id=1)
         field_label = phone._meta.get_field('phone_number_1').verbose_name
         self.assertEqual(field_label, 'phone number 1')
 
     def test_phone_number_2_label(self):
-        phone =  ContactInformation.objects.get(id=1)
+        phone = ContactInformation.objects.get(id=1)
         field_label = phone._meta.get_field('phone_number_2').verbose_name
         self.assertEqual(field_label, 'phone number 2')
 
     def test_email_address_label(self):
-        email =  ContactInformation.objects.get(id=1)
+        email = ContactInformation.objects.get(id=1)
         field_label = email._meta.get_field('email_address').verbose_name
         self.assertEqual(field_label, 'email address')
-        
+
     # test max lenth
     def test_physical_address_max_length(self):
-        address =  ContactInformation.objects.get(id=1)
+        address = ContactInformation.objects.get(id=1)
         max_length = address._meta.get_field('physical_address').max_length
         self.assertEqual(max_length, 100)
 
     def test_phone_number_max_length(self):
-        phone =  ContactInformation.objects.get(id=1)
+        phone = ContactInformation.objects.get(id=1)
         max_length = phone._meta.get_field('phone_number_1').max_length
         self.assertEqual(max_length, 13)
 
     def test_phone_number_2_max_length(self):
-        phone =  ContactInformation.objects.get(id=1)
+        phone = ContactInformation.objects.get(id=1)
         max_length = phone._meta.get_field('phone_number_2').max_length
         self.assertEqual(max_length, 13)
 
     def test_email_address_max_length(self):
-        email =  ContactInformation.objects.get(id=1)
+        email = ContactInformation.objects.get(id=1)
         max_length = email._meta.get_field('email_address').max_length
         self.assertEqual(max_length, 100)
 
@@ -333,20 +237,20 @@ class ContactInformationTestClass(TestCase):
         infor = ContactInformation.objects.get(id=1)
         expected_object_name = f'{infor.email_address}, {infor.phone_number_1}'
         self.assertEqual(str(infor), expected_object_name)
-    
+
 
 class ContactFormSubmissionTestClass(TestCase):
     @classmethod
     def setUpTestData(cls) -> None:
         ContactFormSubmissions.objects.create(
-            name='test name', email='test email',
+            first_name='first name', email='test email',
             message='test message', mobile='test mobile'
         )
 
     def test_contact_name_label(self):
         name = ContactFormSubmissions.objects.get(id=1)
-        field_label = name._meta.get_field('name').verbose_name
-        self.assertEqual(field_label, 'name')
+        field_label = name._meta.get_field('first_name').verbose_name
+        self.assertEqual(field_label, 'first name')
 
     def test_contact_created_at_lable(self):
         created = ContactFormSubmissions.objects.get(id=1)
@@ -371,7 +275,7 @@ class ContactFormSubmissionTestClass(TestCase):
     # test max length
     def test_contact_name_length(self):
         name = ContactFormSubmissions.objects.get(id=1)
-        max_length = name._meta.get_field('name').max_length
+        max_length = name._meta.get_field('first_name').max_length
         self.assertEqual(max_length, 100)
 
     def test_contact_email_length(self):
@@ -391,7 +295,7 @@ class ContactFormSubmissionTestClass(TestCase):
 
     def test_object_name(self):
         message = ContactFormSubmissions.objects.get(id=1)
-        expected_object_name = f'{message.created_at}, {message.name}, {message.message}, {message.mobile}'
+        expected_object_name = f'{message.created_at}, {message.first_name}, {message.last_name}, {message.message}, {message.mobile}'
         self.assertEqual(str(message), expected_object_name)
 
 
@@ -401,49 +305,14 @@ class BannerImageTestClass(TestCase):
     def setUpTestData(cls) -> None:
         logo = str(BASE_DIR) + 'static/img/brass.jpg'
         cover = str(BASE_DIR) + 'static/img/brass.jpg'
-        BannerImage.objects.create(logo_image=logo, cover_image=cover)
-    
+        BannerImage.objects.create(cover_image=logo)
+
     def test_logo_label(self):
         logo = BannerImage.objects.get(id=1)
-        field_label = logo._meta.get_field('logo_image').verbose_name
-        self.assertEqual(field_label, 'logo image')
+        field_label = logo._meta.get_field('cover_image').verbose_name
+        self.assertEqual(field_label, 'cover image')
 
     def test_cover_label(self):
         cover = BannerImage.objects.get(id=1)
         field_label = cover._meta.get_field('cover_image').verbose_name
         self.assertEqual(field_label, 'cover image')
-
-
-# class DeleteOldImageTest(TestCase):
-#     def setUp(self):
-#         # Create a test instance of BannerImage
-#         self.brand_image = BannerImage.objects.create()
-
-#     def tearDown(self):
-#         # Clean up after the test
-#         self.brand_image.cover_image.delete()
-#         self.brand_image.logo_image.delete()
-#         self.brand_image.delete()
-
-#     def test_delete_old_image(self):
-#         # Upload a test cover image and logo image
-#         cover_image_file = str(BASE_DIR) + 'static/img/brass.jpg'
-#         logo_image_file = str(BASE_DIR) + 'static/img/brass.jpg'
-#         self.brand_image.cover_image = cover_image_file
-#         self.brand_image.logo_image = logo_image_file
-#         self.brand_image.save()
-
-#         # Create a new instance with the same primary key (simulating an update)
-#         new_instance = BannerImage(pk=self.brand_image.pk)
-
-#         # Call delete_old_image function
-#         delete_old_image(new_instance, "brass.jpg")
-
-#         # Ensure that old images are deleted
-#         self.assertFalse(self.brand_image.cover_image.storage.exists(self.brand_image.cover_image.name))
-#         self.assertFalse(self.brand_image.logo_image.storage.exists(self.brand_image.logo_image.name))
-
-#         # Ensure that the new_instance cover_image and logo_image are set
-#         self.assertEqual(new_instance.cover_image.name, "brass.jpg")
-#         self.assertEqual(new_instance.logo_image.name, "brass.jpg")  # Since we set both to "new_cover.jpg"
-

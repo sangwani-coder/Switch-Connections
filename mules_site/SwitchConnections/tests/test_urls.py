@@ -17,15 +17,13 @@ class ProjectUrlsTestCase(TestCase):
 class AppUrlsTestCase(TestCase):
     @classmethod
     def setUpTestData(cls) -> None:
-        p_category = models.ProjectCategory.objects.create(
-            category_name="Test category", category_description="test category description")
-        image = str(BASE_DIR) + 'static/img/brass.jpg'
+        s_category = models.ServiceCategory.objects.create(
+            category_name="Wood works")
         models.ProjectListings.objects.create(
             project_name="test project", project_description="test project desc",
-            project_images=image, project_category=p_category,
+            service_category=s_category,
             )
-        s_category = models.ServiceCategory.objects.create(
-            category_name="Wood works", category_description="Wood work products")
+        
         models.ServiceListings.objects.create(
             service_name="desk making", service_description="school furnture",
             service_price='123', service_category=s_category,
@@ -51,17 +49,6 @@ class AppUrlsTestCase(TestCase):
         response = self.client.get(reverse("about_us"))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "SwitchConnections/about.html")
-
-    def test_services_url(self):
-        response = self.client.get(reverse("services"))
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "SwitchConnections/services.html")
-
-    def test_service_detail_url(self):
-        service_id = 1
-        response = self.client.get(reverse("service_detail", args=[service_id]))
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "SwitchConnections/service_details.html")
 
     def test_contact_us_url(self):
         response = self.client.get(reverse("contact_us"))
